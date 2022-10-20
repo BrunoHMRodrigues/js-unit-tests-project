@@ -41,11 +41,8 @@ const calculator = (number1, number2) => {
     div: Math.trunc(number1 / number2),
     sub: number1 - number2,
   };
-  console.log(result.sum);
-  console.log(result.div);
   return result;
 };
-calculator(7, 3);
 
 const arrayGenerator = (type, object) => {
   let result = null;
@@ -58,5 +55,4 @@ const arrayGenerator = (type, object) => {
   }
   return result;
 };
-console.log(arrayGenerator('entries', { sum: 3, mult: 2, div: 0, sub: -1 }));
 module.exports = { calculator, arrayGenerator };

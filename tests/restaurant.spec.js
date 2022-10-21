@@ -136,7 +136,7 @@ describe('10 - Implemente a função `createMenu`, bem como seus casos de teste'
     callCreateMenu.order('coxinha');
     callCreateMenu.order('agua');
     callCreateMenu.order('coxinha');
-    expect(callCreateMenu.pay()).toBe(11.7)
+    expect(callCreateMenu.pay()).toBeCloseTo(12.87)
     // objetoRetornado.order('coxinha');
     // objetoRetornado.order('agua');
     // objetoRetornado.order('coxinha');

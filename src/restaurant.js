@@ -104,43 +104,32 @@ const createMenu = (menu) => {
     pay: () => {
       const getConsumption = restaurant.consumption;
       const callCreateMenu = createMenu(meuRestaurante);
+      const foodItems = callCreateMenu.fetchMenu().food;
+      const foodKeys = Object.keys(foodItems);
+      const foodValues = Object.values(foodItems);
+      const drinkItems = callCreateMenu.fetchMenu().drinks;
+      const drinksKeys = Object.keys(drinkItems);
+      const drinksValues = Object.values(drinkItems);
+      const keysMenu = foodKeys.concat(drinksKeys);
+      const valuesMenu = foodValues.concat(drinksValues);
       let bill = 0;
-      for (let index = 0; index < getConsumption.length; index += 1) {
-        const foodItems = callCreateMenu.fetchMenu().food;
-        const foodKeys = Object.keys(foodItems);
-        const foodValues = Object.values(foodItems);
-        const drinkItems = callCreateMenu.fetchMenu().drinks;
-        const drinksKeys = Object.keys(drinkItems);
-        const drinksValues = Object.values(drinkItems);
-        for (let index2 = 0; index2 < foodKeys.length; index2 += 1) {
-          if (getConsumption[index] === foodKeys[index2]) {
-            bill += foodValues[index2];
-          }
-        }
-        for (let index2 = 0; index2 < drinksKeys.length; index2 += 1) {
-          if (getConsumption[index] === drinksKeys[index2]) {
-            bill += drinksValues[index2];
-          }
-        }        
+      for (let index = 0; index < getConsumption.length; index += 1) {        
+        for (let index2 = 0; index2 < keysMenu.length; index2 += 1) {
+          bill += getConsumption[index] === keysMenu[index2] && valuesMenu[index2];
+        }      
       }      
-      return bill;
+      return bill * 1.1;
     },
   };
   return restaurant;
 };
 const callCreateMenu = createMenu(meuRestaurante);
 
-callCreateMenu.order('coxinha');
-callCreateMenu.order('agua');
-callCreateMenu.order('coxinha');
-console.log(Object.values(callCreateMenu.fetchMenu().drinks)[0]);
-console.log(callCreateMenu.consumption);
-console.log(Object.keys(callCreateMenu.fetchMenu().food)[0]);
-console.log(callCreateMenu.pay());
+// callCreateMenu.order('coxinha');
+// callCreateMenu.order('agua');
+// callCreateMenu.order('coxinha');
 
-// console.log(Object.values(createMenu(meuRestaurante))[1]);
-// console.log(Array.isArray(Object.values(createMenu(meuRestaurante))[1]));
-// Object.values(createMenu(meuRestaurante))[1].push('coxinha');
-// console.log(Object.values(createMenu(meuRestaurante))[1]);
+// console.log(callCreateMenu.pay());
+// console.log(callCreateMenu.pay());
 
 module.exports = createMenu;

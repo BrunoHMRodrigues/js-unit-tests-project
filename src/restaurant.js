@@ -94,7 +94,10 @@
 // DICA: para isso, você precisará percorrer tanto o objeto da chave `food` quanto o objeto da chave `drink`.
 
 // const createMenu = (menu) => ({ fetchMenu: () => menu, consumption: [], order: (request) => { createMenu(menu).consumption.push(request); } });
-const meuRestaurante = { food: { coxinha: 3.90, sanduiche: 9.90 }, drinks: { agua: 3.90, cerveja: 6.90 } };
+const meuRestaurante = { 
+  food: { coxinha: 3.90, sanduiche: 9.90 },
+  drinks: { agua: 3.90, cerveja: 6.90 },
+};
 
 const createMenu = (menu) => { 
   const restaurant = {

@@ -93,17 +93,54 @@
 // - retornará o valor somado acrescido de 10%.
 // DICA: para isso, você precisará percorrer tanto o objeto da chave `food` quanto o objeto da chave `drink`.
 
-const createMenu = (menu) => ({ fetchMenu: () => menu, consumption: [] });
-
+// const createMenu = (menu) => ({ fetchMenu: () => menu, consumption: [], order: (request) => { createMenu(menu).consumption.push(request); } });
 const meuRestaurante = { food: { coxinha: 3.90, sanduiche: 9.90 }, drinks: { agua: 3.90, cerveja: 6.90 } };
-console.log(Object.keys(createMenu(meuRestaurante).fetchMenu().food));
-console.log(createMenu(meuRestaurante).fetchMenu());
 
-const orderFromMenu = (request) => {
-  console.log(createMenu(meuRestaurante).consumption);
-  createMenu(meuRestaurante).consumption.push(request);
-  console.log(createMenu(meuRestaurante).consumption);  
+const createMenu = (menu) => { 
+  const restaurant = {
+    fetchMenu: () => menu,
+    consumption: [],
+    order: (request) => restaurant.consumption.push(request),
+    pay: () => {
+      const getConsumption = restaurant.consumption;
+      const callCreateMenu = createMenu(meuRestaurante);
+      let bill = 0;
+      for (let index = 0; index < getConsumption.length; index += 1) {
+        const foodItems = callCreateMenu.fetchMenu().food;
+        const foodKeys = Object.keys(foodItems);
+        const foodValues = Object.values(foodItems);
+        const drinkItems = callCreateMenu.fetchMenu().drinks;
+        const drinksKeys = Object.keys(drinkItems);
+        const drinksValues = Object.values(drinkItems);
+        for (let index2 = 0; index2 < foodKeys.length; index2 += 1) {
+          if (getConsumption[index] === foodKeys[index2]) {
+            bill += foodValues[index2];
+          }
+        }
+        for (let index2 = 0; index2 < drinksKeys.length; index2 += 1) {
+          if (getConsumption[index] === drinksKeys[index2]) {
+            bill += drinksValues[index2];
+          }
+        }        
+      }      
+      return bill;
+    },
+  };
+  return restaurant;
 };
-console.log(orderFromMenu('coxinha'));
+const callCreateMenu = createMenu(meuRestaurante);
+
+callCreateMenu.order('coxinha');
+callCreateMenu.order('agua');
+callCreateMenu.order('coxinha');
+console.log(Object.values(callCreateMenu.fetchMenu().drinks)[0]);
+console.log(callCreateMenu.consumption);
+console.log(Object.keys(callCreateMenu.fetchMenu().food)[0]);
+console.log(callCreateMenu.pay());
+
+// console.log(Object.values(createMenu(meuRestaurante))[1]);
+// console.log(Array.isArray(Object.values(createMenu(meuRestaurante))[1]));
+// Object.values(createMenu(meuRestaurante))[1].push('coxinha');
+// console.log(Object.values(createMenu(meuRestaurante))[1]);
 
 module.exports = createMenu;

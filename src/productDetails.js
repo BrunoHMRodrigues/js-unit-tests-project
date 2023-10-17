@@ -41,7 +41,4 @@ const productDetails = (firstProduct, secondProduct) => [
     },
   },
 ];
-// console.log(Object.values(productDetails('Alcool gel', 'Máscara'))[0].productId.includes('123'));
-// console.log(productDetails('Alcool gel', 'Máscara')[0].details);
-console.log(Object.values(productDetails('Alcool gel', 'Máscara')[0].details)[0].endsWith('123'));
 module.exports = productDetails;
